@@ -1,5 +1,5 @@
 export default function createStore(reducer) {
-  let currentState = 1;
+  let currentState = 0;
   let currentListeners = [];
   function getState() {
     return currentState;
@@ -10,7 +10,13 @@ export default function createStore(reducer) {
   }
   function subscribe(listener) {
     currentListeners.push(listener);
+    return () => {
+      const index = currentListeners.indexOf(listener);
+      currentListeners.splice(index, 1);
+    };
   }
+  dispatch({ type: "KKBREDUX/OOOO" });
+
   return {
     getState,
     dispatch,

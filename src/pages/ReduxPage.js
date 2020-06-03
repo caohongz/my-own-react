@@ -1,22 +1,40 @@
 import React, { Component } from "react";
-import store from "../store/";
+import { connect } from "../kreactredux/";
+// import { bindActionCreators } from "redux";
+import { bindActionCreators } from "../kreactredux/";
 
-export default class ReduxPage extends Component {
-  componentDidMount() {
-    store.subscribe(() => {
-      this.forceUpdate();
-    });
+@connect(
+  (state) => ({ count: state.home }),
+  (dispatch) => {
+    let creators = {
+      add: () => ({ type: "ADD" }),
+      minus: () => ({ type: "MINUS" }),
+    };
+    creators = bindActionCreators(creators, dispatch);
+    return { dispatch, ...creators };
   }
-  add = () => {
-    store.dispatch({ type: "ADD", payload: 100 });
+  // {
+  //   add: () => ({ type: "ADD" }),
+  //   minus: () => ({ type: "MINUS" }),
+  // }
+)
+class ReduxPage extends Component {
+  dispatchAdd = () => {
+    this.props.dispatch({ type: "ADD" });
+    console.log(this.props.count);
   };
   render() {
+    console.log("this.props", this.props);
+    const { count, add, minus } = this.props;
     return (
       <div>
         <h3>ReduxPage</h3>
-        <div>{store.getState()}</div>
-        <button onClick={this.add}>add</button>
+        <div>{count}</div>
+        <button onClick={this.dispatchAdd}>dispatch add</button>
+        <button onClick={add}>add</button>
+        <button onClick={minus}>minus</button>
       </div>
     );
   }
 }
+export default ReduxPage;
