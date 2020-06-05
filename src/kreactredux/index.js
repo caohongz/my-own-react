@@ -7,6 +7,8 @@ export const connect = (mapStateToProps, mapDispatchToProps) => (
   const store = useContext(ReduxContext);
   const { getState, dispatch, subscribe } = store;
   const stateProps = mapStateToProps(getState());
+  console.log("stateProps", stateProps);
+
   console.log(mapStateToProps);
 
   let dispatchProps = { dispatch };
@@ -15,7 +17,7 @@ export const connect = (mapStateToProps, mapDispatchToProps) => (
   } else if (typeof mapDispatchToProps === "object") {
     dispatchProps = bindActionCreators(mapDispatchToProps, dispatch);
   }
-  const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
+  const [forceUpdate] = useReducer((x) => x + 1, 0);
   useLayoutEffect(() => {
     let unsubscribe = subscribe(() => {
       forceUpdate();
@@ -24,8 +26,8 @@ export const connect = (mapStateToProps, mapDispatchToProps) => (
       if (unsubscribe) {
         unsubscribe();
       }
-    };
-  }, [store]);
+    }; // eslint-disable-next-line
+  }, []);
   return <WrappedCompoent {...props} {...stateProps} {...dispatchProps} />;
 };
 
@@ -53,7 +55,7 @@ export function useSelector(selector) {
   const selectedState = selector(getState());
   console.log("selectedState: " + selectedState);
 
-  const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
+  const [forceUpdate] = useReducer((x) => x + 1, 0);
   useLayoutEffect(() => {
     const unsubscribe = subscribe(() => {
       forceUpdate();
@@ -62,8 +64,8 @@ export function useSelector(selector) {
       if (unsubscribe) {
         unsubscribe();
       }
-    };
-  }, [store]);
+    }; // eslint-disable-next-line
+  }, []);
   return selectedState;
 }
 export function useDispatch() {

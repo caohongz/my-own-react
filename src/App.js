@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 // import ReduxUsePage from "./pages/ReduxUsePage";
 import RouterPage from "./pages/RouterPage";
 // import MyRCForm from "./pages/MyRCForm";
 
 function App() {
-  const [num, setNum] = useState(1);
+  // const [num, setNum] = useState(1);
   return (
     // <div>
     //   <button
