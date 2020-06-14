@@ -25,7 +25,7 @@ class ClassComponent extends Component {
   render() {
     return (
       <div className="border">
-        {this.props.name}
+        <p>{this.props.name}</p>
         <p>{this.props.msg}</p>
       </div>
     );
@@ -41,6 +41,18 @@ const jsx = (
     <a href="https://www.kaikeba.com">开课吧</a>
     <FunctionComponent name="FunctionComponent" />
     <ClassComponent name="ClassComponent" />
+    {/* <>
+      <p>a</p>
+      <p>b</p>
+    </> */}
+    {/* {[1, 2, 3].map((item) => {
+      return (
+        <div className="border" key={item}>
+          <h1>text1</h1>
+          <h2>text2</h2>
+        </div>
+      );
+    })} */}
   </div>
 );
 ReactDOM.render(jsx, document.getElementById("root"));

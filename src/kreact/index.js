@@ -1,7 +1,5 @@
 import { TEXT } from "./const";
 function createElement(type, config, ...children) {
-  console.log(children);
-
   if (config) {
     delete config.__self;
     delete config.__source;
