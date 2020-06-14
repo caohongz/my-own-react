@@ -30,6 +30,7 @@ function createNode(vnode, parentNode) {
   let node = null;
   // todo
   const { type, props } = vnode;
+
   if (type === TEXT) {
     node = document.createTextNode("");
   } else if (typeof type === "string") {
@@ -42,7 +43,9 @@ function createNode(vnode, parentNode) {
     node = document.createDocumentFragment();
   }
   // reconcileChildren(props.children, node);
+  console.log("create", node);
   updateNode(node, props);
+  console.log("create1", vnode, node, props);
   return node;
 }
 
@@ -75,6 +78,8 @@ function updateNode(node, nextVal) {
         let evenetName = k.slice(2).toLowerCase();
         node.addEventListener(evenetName, nextVal[k]);
       } else {
+        console.log("update", k, node, nextVal);
+
         node[k] = nextVal[k];
       }
     });
